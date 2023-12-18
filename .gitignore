@@ -1,0 +1,10 @@
+__pycache__/
+.terraform
+.terraform.lock.hcl
+*.tfstate
+.vscode/
+dev_scripts/
+.stignore
+core
+secrets.yaml
+env

@@ -1,0 +1,17 @@
+name: tls-secrets-backup
+autocreate: true 
+image: okteto/python:3
+command: ["/bin/sh"]
+workdir: /app
+context: kind-kind
+namespace: cert-manager
+serviceAccount: secret-reader-sa
+securityContext:
+  capabilities:
+    add:
+    - SYS_PTRACE
+sync:
+  - .:/app/cert-backup-restore/  
+forward:
+  - 8080:8080
+  - 2345:2345
