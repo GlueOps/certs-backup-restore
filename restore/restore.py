@@ -22,12 +22,14 @@ logger = logging.getLogger('CERT_BACKUP_RESTORE.config')
 def get_latest_backup():
     s3 = boto3.client('s3', aws_access_key_id=access_key, aws_secret_access_key=secret_key, region_name=region)
 
-    # List objects in the specified S3 bucket and prefix
-    response = s3.list_objects_v2(Bucket=bucket_name)
+    paginator = s3.get_paginator("list_objects_v2")
+    page_iterator = paginator.paginate(Bucket=bucket_name)
+    latest_date = None 
     
-    # Extract dates from object keys and find the latest date
-    dates = [datetime.strptime(obj['Key'][:10], '%Y-%m-%d') for obj in response.get('Contents', [])]
-    latest_date = max(dates, default=None)
+    for page in page_iterator:
+        if "Contents" in page:
+            dates = [datetime.strptime(obj['Key'][:10], '%Y-%m-%d') for obj in page['Contents']]
+        latest_date = max(dates)
 
     if latest_date:
         # Formulate the latest date as part of the S3 object key
