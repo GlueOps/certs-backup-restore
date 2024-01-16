@@ -10,9 +10,8 @@ from kubernetes import (
 
 output_file = "secrets.yaml"
 bucket_name = os.getenv("BUCKET_NAME")
-access_key = os.getenv("AWS_ACCESS_KEY")
-secret_key = os.getenv("AWS_SECRET_KEY")
-region = os.getenv("BUCKET_REGION","us-west-2")
+captain_domain = os.getenv("CAPTAIN_DOMAIN")
+backup_prefix = os.getenv("BACKUP_PREFIX")
 
 #init child logger
 logger = logging.getLogger('CERT_BACKUP_RESTORE.config')
@@ -49,9 +48,9 @@ def write_secrets_to_file(secrets, output_file):
 
 def upload_secrets_to_s3():
     try:
-        s3 = boto3.client('s3', aws_access_key_id=access_key, aws_secret_access_key=secret_key, region_name=region)
+        s3 = boto3.client('s3')
         current_date = datetime.now().strftime("%Y-%m-%d")
-        s3_key = current_date+"/secrets.yaml"
+        s3_key = captain_domain+"/"+backup_prefix+"/"+current_date+"/secrets.yaml"
         s3.upload_file(output_file, bucket_name, s3_key)
         logger.info(f"File uploaded to S3: {bucket_name}/{s3_key}")
     except FileNotFoundError:
