@@ -14,7 +14,6 @@ output_file = "secrets.yaml"
 bucket_name = os.getenv("BUCKET_NAME")
 captain_domain = os.getenv("CAPTAIN_DOMAIN")
 backup_prefix = os.getenv("BACKUP_PREFIX")
-exclude_namespaces = os.getenv("EXCLUDE_NAMESPACES")
 
 #init child logger
 logger = logging.getLogger('CERT_BACKUP_RESTORE.config')
@@ -46,7 +45,7 @@ def get_latest_backup():
     
 def restore_tls_secrets():
 
-    exclude_namespaces = exclude_namespaces.split(',')
+    exclude_namespaces = os.getenv("EXCLUDE_NAMESPACES").split(',')
     with open(output_file, 'r') as file:
         secrets_yaml = file.read()
         secrets_data = yaml.load_all(secrets_yaml, Loader=yaml.SafeLoader)
