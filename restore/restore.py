@@ -14,6 +14,7 @@ output_file = "secrets.yaml"
 bucket_name = os.getenv("BUCKET_NAME")
 captain_domain = os.getenv("CAPTAIN_DOMAIN")
 backup_prefix = os.getenv("BACKUP_PREFIX")
+exclude_namespaces = os.getenv("EXCLUDE_NAMESPACES")
 
 #init child logger
 logger = logging.getLogger('CERT_BACKUP_RESTORE.config')
@@ -45,6 +46,7 @@ def get_latest_backup():
     
 def restore_tls_secrets():
 
+    exclude_namespaces = exclude_namespaces.split(',')
     with open(output_file, 'r') as file:
         secrets_yaml = file.read()
         secrets_data = yaml.load_all(secrets_yaml, Loader=yaml.SafeLoader)
@@ -52,19 +54,20 @@ def restore_tls_secrets():
 
         try:
             for secret_dict in secrets_data:
-                
-                # Create a V1Secret object from the dictionary
-                secret = k8s_client.V1Secret(
-                    metadata=k8s_client.V1ObjectMeta(name=secret_dict['metadata']['name'],
-                                                 namespace=secret_dict['metadata']['namespace']),
-                    data=secret_dict.get('data', {}),
-                    type=secret_dict.get('type', None)
-                )
+                namespace = secret_dict['metadata']['namespace']
+                if(namespace not in exclude_namespaces):
+                    # Create a V1Secret object from the dictionary
+                    secret = k8s_client.V1Secret(
+                        metadata=k8s_client.V1ObjectMeta(name=secret_dict['metadata']['name'],
+                                                    namespace=secret_dict['metadata']['namespace']),
+                        data=secret_dict.get('data', {}),
+                        type=secret_dict.get('type', None)
+                    )
 
-                api.create_namespaced_secret(
-                    namespace=secret.metadata.namespace,
-                    body=secret,
-                )
-                logger.info(f"Secret '{secret.metadata.name}' applied in namespace {secret.metadata.namespace}")
+                    api.create_namespaced_secret(
+                        namespace=secret.metadata.namespace,
+                        body=secret,
+                    )
+                    logger.info(f"Secret '{secret.metadata.name}' applied in namespace {secret.metadata.namespace}")
         except k8s_client.rest.ApiException as e:
             logger.error(f"Error applying secrets: {e}")
