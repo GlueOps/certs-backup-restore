@@ -58,7 +58,8 @@ def restore_tls_secrets():
                     # Create a V1Secret object from the dictionary
                     secret = k8s_client.V1Secret(
                         metadata=k8s_client.V1ObjectMeta(name=secret_dict['metadata']['name'],
-                                                    namespace=secret_dict['metadata']['namespace']),
+                                                    namespace=secret_dict['metadata']['namespace'],
+                                                    labels="createdBy: tls-restore"),
                         data=secret_dict.get('data', {}),
                         type=secret_dict.get('type', None)
                     )
