@@ -57,9 +57,12 @@ def restore_tls_secrets():
                 if(namespace not in exclude_namespaces):
                     # Create a V1Secret object from the dictionary
                     secret = k8s_client.V1Secret(
-                        metadata=k8s_client.V1ObjectMeta(name=secret_dict['metadata']['name'],
-                                                    namespace=secret_dict['metadata']['namespace'],
-                                                    labels={"createdBy": "tls-restore"}),
+                        metadata=k8s_client.V1ObjectMeta(
+                        name=secret_dict['metadata']['name'],
+                        namespace=secret_dict['metadata']['namespace'],
+                        annotations=secret_dict['metadata']['annotations'],
+                        labels=secret_dict['metadata']['labels']
+                        ),
                         data=secret_dict.get('data', {}),
                         type=secret_dict.get('type', None)
                     )
