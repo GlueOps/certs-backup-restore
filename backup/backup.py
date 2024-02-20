@@ -26,7 +26,7 @@ def get_tls_secrets():
         all_tls_secrets = []
 
         for namespace in all_namespaces:
-            secrets = v1.list_namespaced_secret(namespace.metadata.name, field_selector='type=kubernetes.io/tls').items
+            secrets = v1.list_namespaced_secret(namespace.metadata.name, label_selector='controller.cert-manager.io/fao=true').items
             all_tls_secrets.extend(secrets)
         return all_tls_secrets
     except Exception as e:
