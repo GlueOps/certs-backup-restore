@@ -8,7 +8,7 @@
       "managers": ["dockerfile"],
       "datasources": ["docker"],
       "packageNames": ["python"],
-      "allowedVersions": "3.11.*"
+      "allowedVersions": "3.11.*-alpine3.19"
     }
   ]
 }
