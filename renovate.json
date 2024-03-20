@@ -8,7 +8,7 @@
       "managers": ["dockerfile"],
       "datasources": ["docker"],
       "packageNames": ["python"],
-      "allowedVersions": "<=3.9"  // Replace 3.9 with your desired max Python version
+      "allowedVersions": "<=3.11"
     }
   ]
 }
