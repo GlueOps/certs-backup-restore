@@ -5,5 +5,13 @@
     "docker:pinDigests",
     "helpers:pinGitHubActionDigests",
     ":pinDevDependencies"
+  ],
+    "packageRules": [
+    {
+      "matchDatasources": [
+        "docker"
+      ],
+      "pinDigests": true
+    }
   ]
 }
