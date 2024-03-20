@@ -6,12 +6,5 @@
     "helpers:pinGitHubActionDigests",
     ":pinDevDependencies"
   ],
-  "separateMinorPatch": true,
-  "packageRules": [
-    {
-      "matchDatasources": ["docker"],
-      "matchUpdateTypes": ["minor"],
-      "enabled": false
-    }
-  ]
+  "separateMinorPatch": true
 }
