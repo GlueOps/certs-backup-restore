@@ -2,5 +2,13 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended"
+  ],
+  "packageRules": [
+    {
+      "managers": ["dockerfile"],
+      "datasources": ["docker"],
+      "packageNames": ["python"],
+      "allowedVersions": "<=3.9"  // Replace 3.9 with your desired max Python version
+    }
   ]
 }
