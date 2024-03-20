@@ -5,8 +5,8 @@
   ],
   "packageRules": [
     {
-      "matchPaths": ["Dockerfile"],
-      "packageNames": ["python"],
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["python"],
       "versioning": "pep440"
     }
   ]
