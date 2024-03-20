@@ -7,6 +7,9 @@
     {
       "matchDatasources": ["docker"],
       "matchPackageNames": ["python"]
+      "matchUpdateTypes": [
+        "patch"
+      ]
     }
   ]
 }
