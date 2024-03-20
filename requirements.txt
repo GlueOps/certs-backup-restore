@@ -1,4 +1,4 @@
 kubernetes==28.1.0
-boto3==1.34.65
+boto3==1.34.67
 glueops-helpers @ https://github.com/GlueOps/python-glueops-helpers-library/archive/refs/tags/v0.2.0.zip
 PyYAML==6.0.1
