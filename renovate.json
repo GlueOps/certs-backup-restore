@@ -5,9 +5,8 @@
   ],
   "packageRules": [
     {
-      "managers": ["dockerfile"],
-      "datasources": ["docker"],
-      "packageNames": ["^python:"],
+      "matchPaths": ["Dockerfile"],
+      "packageNames": ["python"],
       "allowedVersions": "3.11.*-alpine3.19"
     }
   ]
