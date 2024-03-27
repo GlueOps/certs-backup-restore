@@ -21,7 +21,7 @@ def get_tls_secrets():
         # Create a Kubernetes API client
         v1 = k8s_client.CoreV1Api()
 
-        # Get secrets with type kubernetes.io/tls 
+        # Get secrets with label controller.cert-manager.io/fao=true
         all_namespaces = v1.list_namespace().items
         all_tls_secrets = []
 
