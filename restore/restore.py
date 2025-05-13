@@ -37,7 +37,6 @@ def get_latest_backup():
                             obj_date = datetime.fromisoformat(tag['Value'])
                             break
                     
-                    # if the obj have a primary tag we should use it  
                     if obj['Key'].endswith('.snap') and obj['Key'] == restore_this_backup:
                         return obj
 
