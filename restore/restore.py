@@ -43,7 +43,6 @@ def get_latest_backup():
                     if obj['Key'].endswith('.snap') and (not latest_snap_object or latest_snap_object['date'] < obj_date):
                         latest_snap_object['date'] = obj_date
                         latest_snap_object['obj'] = obj
-    return latest_snap_object['obj']
 
     if latest_snap_object:
         # Download the latest secrets.yaml file
