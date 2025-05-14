@@ -14,6 +14,7 @@ output_file = "secrets.yaml"
 bucket_name = os.getenv("BUCKET_NAME")
 captain_domain = os.getenv("CAPTAIN_DOMAIN")
 backup_prefix = os.getenv("BACKUP_PREFIX")
+restore_this_backup = os.getenv("RESTORE_THIS_BACKUP")
 
 #init child logger
 logger = logging.getLogger('CERT_BACKUP_RESTORE.config')
@@ -23,21 +24,31 @@ def get_latest_backup():
 
     paginator = s3.get_paginator("list_objects_v2")
     page_iterator = paginator.paginate(Bucket=bucket_name,Prefix=captain_domain+"/"+backup_prefix)
-    latest_snap_object = None
+    latest_snap_object = {}
     for page in page_iterator:
         if "Contents" in page:
-            snap_objects = [obj for obj in page['Contents'] if obj['Key'].endswith(output_file)]
-            if snap_objects:
-                current_latest_snap_object = max(snap_objects, key=lambda obj: obj['LastModified']) 
-            if (latest_snap_object is None or 
-                current_latest_snap_object['LastModified'] > latest_snap_object['LastModified']):
-                latest_snap_object = current_latest_snap_object
+            for obj in page['Contents']:
+                    response = client.get_object_tagging(
+                        Bucket=bucket_name,
+                        Key=f"{captain_domain}/{backup_prefix}/{obj['Key']}",
+                    )
+                    for tag in response['TagSet']:
+                        if tag['Key'] == "datetime_created":
+                            obj_date = datetime.fromisoformat(tag['Value'])
+                            break
+                    
+                    if obj['Key'].endswith('.snap') and obj['Key'] == restore_this_backup:
+                        return obj
+
+                    if obj['Key'].endswith('.snap') and (not latest_snap_object or latest_snap_object['date'] < obj_date):
+                        latest_snap_object['date'] = obj_date
+                        latest_snap_object['obj'] = obj
 
     if latest_snap_object:
         # Download the latest secrets.yaml file
         local_file_path = os.path.join(output_file)
-        s3.download_file(bucket_name, latest_snap_object['Key'], local_file_path)
-        logger.info(f"Downloaded the latest backup from s3: {latest_snap_object['Key']}")
+        s3.download_file(bucket_name, latest_snap_object['obj']['Key'], local_file_path)
+        logger.info(f"Downloaded the latest backup from s3: {latest_snap_object['obj']['Key']}")
         return local_file_path
     else:
         logger.info("No secrets.yaml files found in the specified S3 location.")
