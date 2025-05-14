@@ -24,7 +24,7 @@ def get_latest_backup():
 
     paginator = s3.get_paginator("list_objects_v2")
     page_iterator = paginator.paginate(Bucket=bucket_name,Prefix=captain_domain+"/"+backup_prefix)
-    latest_snap_object = None
+    latest_snap_object = {}
     for page in page_iterator:
         if "Contents" in page:
             for obj in page['Contents']:
