@@ -37,8 +37,8 @@ def get_latest_backup():
                         obj_date = datetime.fromisoformat(tag['Value'])
                         break
 
-                if obj['Key'].endswith('.snap') and obj['Key'].split("/")[-1] == restore_this_backup:
-                    print("restoring this backup",restore_this_backup)
+                if obj['Key'].endswith('.snap') and os.path.basename(obj['Key']) == restore_this_backup:
+                    logger.info(f"restoring this backup {restore_this_backup}")
                     return obj
                 if obj['Key'].endswith('.snap') and (not latest_snap_object or latest_snap_object['date'] < obj_date):
                     latest_snap_object['date'] = obj_date
