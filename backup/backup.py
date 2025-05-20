@@ -16,6 +16,11 @@ backup_prefix = os.getenv("BACKUP_PREFIX")
 #init child logger
 logger = logging.getLogger('CERT_BACKUP_RESTORE.config')
 
+
+def handle_error_and_exit(msg):
+    logger.info(msg)
+    exit(0)
+
 def get_tls_secrets():
     try:
         # Create a Kubernetes API client
