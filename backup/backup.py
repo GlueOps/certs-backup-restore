@@ -18,8 +18,8 @@ logger = logging.getLogger('CERT_BACKUP_RESTORE.config')
 
 
 def handle_error_and_exit(msg):
-    logger.info(msg)
-    exit(0)
+    logger.error(msg)
+    exit(1)
 
 def get_tls_secrets():
     try:
