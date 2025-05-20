@@ -55,5 +55,7 @@ def upload_secrets_to_s3():
         logger.info(f"File uploaded to S3: {bucket_name}/{s3_key}")
     except FileNotFoundError:
         logger.error(f"The file {output_file} was not found.")
+        exit(0)
     except Exception as e:
         logger.error(f"An error occurred: {str(e)}")
+        exit(0)
