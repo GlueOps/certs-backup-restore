@@ -57,6 +57,18 @@ def upload_secrets_to_s3():
         current_date = datetime.now().strftime("%Y-%m-%d")
         s3_key = captain_domain+"/"+backup_prefix+"/"+current_date+"/secrets.yaml"
         s3.upload_file(output_file, bucket_name, s3_key)
+        s3.put_object_tagging(
+            Bucket=bucket_name,
+            Key=s3_key,
+            Tagging={
+                'TagSet': [
+                    {
+                        'Key': "datetime_created",
+                        'Value': datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
+                    },
+                ],
+            },
+        )
         logger.info(f"File uploaded to S3: {bucket_name}/{s3_key}")
     except FileNotFoundError:
         handle_error_and_exit(f"The file {output_file} was not found.")
