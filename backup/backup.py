@@ -2,7 +2,7 @@ import logging
 import yaml
 import boto3
 import os
-from datetime import datetime
+from datetime
 from kubernetes import (
   client as k8s_client,
   config as k8s_config
@@ -54,14 +54,17 @@ def write_secrets_to_file(secrets, output_file):
 def upload_secrets_to_s3():
     try:
         s3 = boto3.client('s3')
-        current_date = datetime.now().strftime("%Y-%m-%d")
+        current_datetime = datetime.datetime.now(datetime.UTC)
+        current_date = current_datetime.strftime("%Y-%m-%d")
+        current_date_with_time = current_datetime.strftime('%Y-%m-%dT%H:%M:%S')
+
         s3_key = captain_domain+"/"+backup_prefix+"/"+current_date+"/secrets.yaml"
         s3.upload_file(
 	            output_file,
 	            bucket_name,
 	            s3_key,
 	            ExtraArgs={
-	                'Tagging': f"datetime_created={datetime.now().strftime('%Y-%m-%dT%H:%M:%S')}"
+	                'Tagging': f"datetime_created={current_date_with_time}"
 	            }
         )
         logger.info(f"File uploaded to S3: {bucket_name}/{s3_key}")
