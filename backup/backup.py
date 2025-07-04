@@ -2,7 +2,7 @@ import logging
 import yaml
 import boto3
 import os
-from datetime
+import datetime
 from kubernetes import (
   client as k8s_client,
   config as k8s_config
