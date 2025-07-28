@@ -28,6 +28,7 @@ def get_latest_backup():
     for page in page_iterator:
         if "Contents" in page:
             for obj in page['Contents']:
+                obj_date = None
                 response = s3.get_object_tagging(
                     Bucket=bucket_name,
                     Key=obj['Key'],
@@ -40,7 +41,10 @@ def get_latest_backup():
                 if obj['Key'].endswith('.yaml') and os.path.basename(obj['Key']) == restore_this_backup:
                     logger.info(f"restoring this backup {restore_this_backup}")
                     return obj
-                  
+                
+                if obj_date is None:
+                    continue
+                
                 if obj['Key'].endswith('.yaml') and (not latest_snap_object or latest_snap_object['date'] < obj_date):
                     latest_snap_object['date'] = obj_date
                     latest_snap_object['obj'] = obj
