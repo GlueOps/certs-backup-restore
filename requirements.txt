@@ -1,4 +1,4 @@
-boto3[crt]==1.42.52
+boto3[crt]==1.42.53
 kubernetes==31.0.0
 glueops-helpers @ https://github.com/GlueOps/python-glueops-helpers-library/archive/refs/tags/v0.2.0.zip
 PyYAML==6.0.3
