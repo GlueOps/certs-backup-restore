@@ -5,6 +5,13 @@ on:
     tags:
       - 'v*'
   workflow_dispatch:
+  workflow_call:
+    inputs:
+      version:
+        description: 'Release tag to also apply as an image tag (e.g. v2.3.2). Set when called from release-please.'
+        required: false
+        type: string
+        default: ''
 
 env:
   REGISTRY: ghcr.io
@@ -46,6 +53,7 @@ jobs:
             type=ref,event=tag,prefix=
             type=sha,format=short,prefix=
             type=sha,format=long,prefix=
+            type=raw,value=${{ inputs.version }},enable=${{ inputs.version != '' }}
       - name: Build and push Docker image
         id: build-and-push
         uses: docker/build-push-action@f9f3042f7e2789586610d6e8b85c8f03e5195baf # v7.2.0

@@ -13,12 +13,26 @@ permissions:
 jobs:
   release-please:
     runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
     steps:
-      # Uses CREATE_REPO_RELEASE (PAT) so that the tag/release created by
-      # release-please triggers the tag-based container_image.yaml build.
-      # Releases created with the default GITHUB_TOKEN do not trigger workflows.
-      - uses: googleapis/release-please-action@5c625bfb5d1ff62eadeeb3772007f7f66fdcf071 # v4.4.1
+      - uses: googleapis/release-please-action@45996ed1f6d02564a971a2fa1b5860e934307cf7 # v5.0.0
+        id: release
         with:
-          token: ${{ secrets.CREATE_REPO_RELEASE }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
+
+  # A tag/release created with GITHUB_TOKEN does not trigger other workflows,
+  # so the tag-based container_image.yaml will not fire on release. Instead we
+  # build/publish the image here, in the same run, when a release was cut.
+  publish-image:
+    needs: release-please
+    if: ${{ needs.release-please.outputs.release_created == 'true' }}
+    permissions:
+      contents: read
+      packages: write
+    uses: ./.github/workflows/container_image.yaml
+    with:
+      version: ${{ needs.release-please.outputs.tag_name }}
