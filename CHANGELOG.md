@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.4](https://github.com/GlueOps/certs-backup-restore/compare/v2.3.3...v2.3.4) (2026-06-30)
+
+
+### Continuous Integration
+
+* bring release-please config up to GlueOps convention ([#377](https://github.com/GlueOps/certs-backup-restore/issues/377)) ([a238692](https://github.com/GlueOps/certs-backup-restore/commit/a238692b9fcc25051b81728671ae34fb0f0a7825))
+
 ## [2.3.3](https://github.com/GlueOps/certs-backup-restore/compare/v2.3.2...v2.3.3) (2026-06-29)
 
 
