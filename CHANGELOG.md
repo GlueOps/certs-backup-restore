@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.3.5](https://github.com/GlueOps/certs-backup-restore/compare/v2.3.4...v2.3.5) (2026-07-01)
+
+
+### Miscellaneous Chores
+
+* **fallback:** update docker/setup-qemu-action ([#379](https://github.com/GlueOps/certs-backup-restore/issues/379)) ([704aaef](https://github.com/GlueOps/certs-backup-restore/commit/704aaefef365ff1a72e1cc979e8dbc9971917425))
+* **patch:** update boto3 to 1.43.19 #patch ([#382](https://github.com/GlueOps/certs-backup-restore/issues/382)) ([11a834c](https://github.com/GlueOps/certs-backup-restore/commit/11a834cf87dc9a9314364022dd6c361476b063df))
+* **patch:** update kubernetes to 36.0.2 #patch ([#380](https://github.com/GlueOps/certs-backup-restore/issues/380)) ([5542eda](https://github.com/GlueOps/certs-backup-restore/commit/5542eda6b31775d916ec5ec9582b784e45d91052))
+
 ## [2.3.4](https://github.com/GlueOps/certs-backup-restore/compare/v2.3.3...v2.3.4) (2026-06-30)
 
 
