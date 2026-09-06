@@ -1,4 +1,5 @@
-import os 
+import os
+import sys
 import argparse
 from glueops.setup_logging import configure as go_configure_logging
 from kubernetes import (
@@ -37,19 +38,32 @@ if __name__ == "__main__":
             logger.exception('Failed to load Kubeconfig from cluster, local file')
 
     if args.backup:
+        if not backup.cert_manager_namespace:
+            logger.error("CERT_MANAGER_NAMESPACE is not set; refusing to run. "
+                         "It must equal the namespace cert-manager runs in, or ACME "
+                         "account keys will be silently omitted from the backup.")
+            sys.exit(1)
         try:
             all_tls_secrets = backup.get_tls_secrets()
 
-            if all_tls_secrets:
-                backup.write_secrets_to_file(all_tls_secrets, output_file)
-                logger.info(f"TLS secrets retrieved and stored in {output_file}")
-            else:
-                logger.info("No TLS secrets found.")
+            # An empty capture must never be uploaded. The day's S3 key is overwritten
+            # in place, so uploading nothing would replace a good backup with a useless
+            # one - and a wrong selector returns [] with no exception, so this is the
+            # only thing standing between a selector bug and silent data loss.
+            if not all_tls_secrets:
+                logger.error("Captured 0 secrets; refusing to upload an empty backup "
+                             "over the existing one.")
+                sys.exit(1)
 
+            backup.write_secrets_to_file(all_tls_secrets, output_file)
+            logger.info(f"Backed up {len(all_tls_secrets)} secret(s) to {output_file}")
             backup.upload_secrets_to_s3()
 
+        except SystemExit:
+            raise
         except Exception as e:
             logger.error(f"Error backing up secrets: {e}")
+            sys.exit(1)
             
     if args.restore:
         try:

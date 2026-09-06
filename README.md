@@ -28,7 +28,6 @@ BUCKET_NAME        ="your-s3-bucket-name"   # required (backup + restore)
 CAPTAIN_DOMAIN     ="your-cluster-domain"   # required; first path segment of the S3 key
 BACKUP_PREFIX      ="tls-secrets"           # required; second path segment of the S3 key
 EXCLUDE_NAMESPACES ="kube-system,default"   # required for --restore; comma-separated
-RESTORE_THIS_BACKUP="secrets.yaml"          # optional (--restore); pin a specific backup file
 PYTHON_LOG_LEVEL   ="INFO"                  # optional; defaults to INFO
 ```
 
