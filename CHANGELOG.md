@@ -1,5 +1,31 @@
 # Changelog
 
+## [2.5.0](https://github.com/GlueOps/certs-backup-restore/compare/v2.4.0...v2.5.0) (2026-09-25)
+
+
+### Features
+
+* update docker/setup-buildx-action to v4.3.0 #minor ([#457](https://github.com/GlueOps/certs-backup-restore/issues/457)) ([d2cc425](https://github.com/GlueOps/certs-backup-restore/commit/d2cc425e1f8461280c4b80b1d1f3ca9faab563f9))
+
+
+### Miscellaneous Chores
+
+* **patch:** update boto3 to 1.43.67 #patch ([#450](https://github.com/GlueOps/certs-backup-restore/issues/450)) ([d4ba29a](https://github.com/GlueOps/certs-backup-restore/commit/d4ba29a64094874ac635091997153290b30ed209))
+* **patch:** update boto3 to 1.43.68 #patch ([#452](https://github.com/GlueOps/certs-backup-restore/issues/452)) ([22394ee](https://github.com/GlueOps/certs-backup-restore/commit/22394eeeccb6abfb640fe5e4855c15ae2d5f9d59))
+* **patch:** update boto3 to 1.43.69 #patch ([#453](https://github.com/GlueOps/certs-backup-restore/issues/453)) ([6b337ee](https://github.com/GlueOps/certs-backup-restore/commit/6b337ee1aebdd501ba9581f4c127c5b2d8932074))
+* **patch:** update boto3 to 1.43.70 #patch ([#454](https://github.com/GlueOps/certs-backup-restore/issues/454)) ([f40c5a6](https://github.com/GlueOps/certs-backup-restore/commit/f40c5a6fe913c17f76f3b57210d4d660ff5585d8))
+* **patch:** update boto3 to 1.43.71 #patch ([#455](https://github.com/GlueOps/certs-backup-restore/issues/455)) ([7472350](https://github.com/GlueOps/certs-backup-restore/commit/7472350293dac5ab8d40acd511bf1c7d0547acd8))
+* **patch:** update boto3 to 1.43.72 #patch ([#456](https://github.com/GlueOps/certs-backup-restore/issues/456)) ([16b0913](https://github.com/GlueOps/certs-backup-restore/commit/16b091394f831c1abea45a67bceef8bbf841e4fc))
+* **patch:** update boto3 to 1.43.73 #patch ([#458](https://github.com/GlueOps/certs-backup-restore/issues/458)) ([286cb50](https://github.com/GlueOps/certs-backup-restore/commit/286cb50be01cf9dd579357b45c19378cd10b4bac))
+* **patch:** update boto3 to 1.43.74 #patch ([#459](https://github.com/GlueOps/certs-backup-restore/issues/459)) ([dd6df11](https://github.com/GlueOps/certs-backup-restore/commit/dd6df1127d305ed0e5ded7d27bf848237b519afe))
+* **patch:** update boto3 to 1.43.75 #patch ([#460](https://github.com/GlueOps/certs-backup-restore/issues/460)) ([6d6f87f](https://github.com/GlueOps/certs-backup-restore/commit/6d6f87f50ba343380424050da4cdca57df892d89))
+* **patch:** update boto3 to 1.43.76 #patch ([#461](https://github.com/GlueOps/certs-backup-restore/issues/461)) ([eabaea7](https://github.com/GlueOps/certs-backup-restore/commit/eabaea71fe94eef6f985383def057fd24d70a0dc))
+* **patch:** update boto3 to 1.43.77 #patch ([#462](https://github.com/GlueOps/certs-backup-restore/issues/462)) ([adf0b50](https://github.com/GlueOps/certs-backup-restore/commit/adf0b50b8ac957b8ded5a5ff7455855fa4f0424d))
+* **patch:** update boto3 to 1.43.78 #patch ([#463](https://github.com/GlueOps/certs-backup-restore/issues/463)) ([20de72c](https://github.com/GlueOps/certs-backup-restore/commit/20de72cc22fc5a6b5f297d852956ddc1330b2bd7))
+* **patch:** update boto3 to 1.43.79 #patch ([#464](https://github.com/GlueOps/certs-backup-restore/issues/464)) ([9b8802f](https://github.com/GlueOps/certs-backup-restore/commit/9b8802f159f2647c47620120e87d1943740debb6))
+* **patch:** update boto3 to 1.43.80 #patch ([#465](https://github.com/GlueOps/certs-backup-restore/issues/465)) ([03f27b8](https://github.com/GlueOps/certs-backup-restore/commit/03f27b89f975d91e275c8a75d3ea0a3c1db5076b))
+* **patch:** update boto3 to 1.43.81 #patch ([#466](https://github.com/GlueOps/certs-backup-restore/issues/466)) ([719ba53](https://github.com/GlueOps/certs-backup-restore/commit/719ba5321126a7ff379a9dfb7fb850558f570e84))
+
 ## [2.4.0](https://github.com/GlueOps/certs-backup-restore/compare/v2.3.4...v2.4.0) (2026-09-06)
 
 
