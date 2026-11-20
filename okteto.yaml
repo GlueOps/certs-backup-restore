@@ -1,6 +1,6 @@
 name: tls-secrets-backup
 autocreate: true 
-image: okteto/python:3@sha256:53a3510600ed1ae253e64b6770c731f302a7cecdd258e45d987d1ad94cd76d05
+image: okteto/python:3@sha256:dbe90bba65567abf0a8794e0a5371a3de29961507c68e1c14770fc9a9810819c
 command: ["/bin/sh"]
 workdir: /app
 context: kind-kind
